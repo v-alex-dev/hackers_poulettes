@@ -1,4 +1,10 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+ini_set('SMTP', 'localhost');  // Utilisez 'localhost' pour le serveur SMTP de MailHog
+ini_set('smtp_port', 1025);     // Port utilisé par MailHog (par défaut : 1025)
+
+require 'vendor/autoload.php';
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check for the honeypot field
@@ -23,22 +29,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // If the email is invalid, display an error message
         echo "Invalid email address.";
     } else {
-        // All data is valid, send an email to the support team
-        $to = "support@hackerspoulette.com"; // Replace with the actual support email
+        $to = $email;
         $subject = "Support Request - $subject";
         $message = "Name: $firstname $lastname\n";
         $message .= "Gender: $gender\n";
-        $message .= "Email: $email\n";
         $message .= "Country: $country\n";
         $message .= "Subject: $subject\n";
         $message .= "Message:\n$description";
 
-        if (mail($to, $subject, $message)) {
-            // Email sent successfully
-            echo "Thank you for contacting us. Your request has been submitted.";
+
+
+        $mail = new PHPMailer();
+
+        $mail->isSMTP();
+        $mail->Host = 'localhost';
+        $mail->SMTPAuth = false;
+        $mail->Port = 1025;
+
+        $mail->setFrom("$email", "Client");
+        $mail->addAddress($email, 'Admin');
+        $mail->Subject = "Support: $subject\n";
+
+        $mail->Body = "First Name: $firstname\n";
+        $mail->Body .= "Last Name: $lastname\n";
+        $mail->Body .= "Country: $country\n";
+        $mail->Body .= "Email: $email\n";
+        $mail->Body .= "Message:\n$description\n";
+
+        if ($mail->send()) {
+            echo 'Email sent successfully!';
         } else {
-            // Email sending failed
-            echo "An error occurred while processing your request. Please try again later.";
+            echo 'Email could not be sent.';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
         }
     }
 } else {

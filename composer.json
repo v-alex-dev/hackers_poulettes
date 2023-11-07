@@ -1,0 +1,15 @@
+{
+  "name": "vendor_name/hackers_poulettes",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "v-alex-dev",
+      "email": "vensalex1991@gmail.com"
+    }
+  ],
+  "require": {
+    "phpmailer/phpmailer": "^6.8"
+  }
+}

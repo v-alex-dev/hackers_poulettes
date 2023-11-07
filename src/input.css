@@ -1,3 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+@font-face {
+    font-family: 'Bellota';
+    src: url('assets/fonts/Bellota-Regular.otf') format('otf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.inputText {
+    @apply grid grid-cols-2 mt-4 ml-4;
+}
+
+html{
+    font-family: Bellota;
+}
