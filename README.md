@@ -52,5 +52,3 @@ Enfin, j'ai nettoyé les entrées des scripts potentiellement dangereux, validé
 ---
 
 **CAUTION:** Ce projet utilise PHP, et aucune GitHub Page n'est nécessaire. Assurez-vous de prendre en compte cette particularité.
-
-Bon codage !
